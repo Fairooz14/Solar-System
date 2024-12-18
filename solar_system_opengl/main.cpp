@@ -3,7 +3,7 @@
 #include<GL/glut.h>
 #include<math.h>
 
-static float m=0, M=0, v=0, V=0, E=0, e=0,  j=0, J=0, s=0,r=0, R=0, S=0, U=0, u=0, n=0, N=0, p=0, P=0, z=0;
+static float m=0, M=0, v=0, V=0, E=0, e=0,  j=0, J=0, s=0,r=0, R=0, S=0, U=0, u=0, n=0, N=0, p=0, P=0, z=0, moonRot=0;
 float angleX = 0.0, angleY = 0.0, zoom = -20.0;
 int prevMouseX = -1, prevMouseY = -1;
 
@@ -124,6 +124,17 @@ void display(void)
         glColor3f(planetColors[i][0], planetColors[i][1], planetColors[i][2]);
         glutSolidSphere(planetSizes[i], 20, 8);
         renderText(-0.2, -0.4, planetNames[i]); // Enhanced visibility and bold text
+
+        // Add Moon for Earth
+        if (i == 2) { // Index 2 is Earth
+            glPushMatrix();
+            glRotatef((GLfloat)moonRot, 0.0, 1.0, 0.0);
+            glTranslatef(0.6, 0.0, 0.0); // Position moon around Earth
+            glColor3f(0.8, 0.8, 0.8); // Moon color
+            glutSolidSphere(0.1, 15, 10); // Moon size
+            glPopMatrix();
+        }
+
         glPopMatrix();
     }
 
